@@ -1,0 +1,13 @@
+[project]
+name = "ai-reviewer"
+version = "0.5.0"
+description = "Code Review Action with Multiple AI providers in Gitea"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "anthropic>=0.42.0",
+    "google-generativeai>=0.8.3",
+    "openai>=1.59.6",
+    "py-gitea>=0.2.8",
+    "requests>=2.32.3",
+]
