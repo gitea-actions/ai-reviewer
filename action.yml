@@ -1,0 +1,54 @@
+name: "Code Review Action"
+description: "An action that reviews PR changes using multiple AI LLMs."
+author: "Myeongseon Choi"
+
+inputs:
+  access-token:
+    required: true
+    description: "Gitea or GitHub token"
+  full-context-model:
+    required: true
+    default: "gpt-4o"
+    description: "Model for the full context pass"
+  full-context-api-key:
+    required: true
+    description: "API key for the full context model"
+  single-chunk-model:
+    required: true
+    default: "gpt-4o"
+    description: "Model for the file-chunk pass"
+  single-chunk-api-key:
+    required: true
+    description: "API key for the single chunk model"
+  exclude-files:
+    required: false
+    default: "*.yml,*.yaml"
+    description: "Patterns to exclude in diffs"
+
+
+runs:
+  using: "composite"
+  steps:
+    - name: Check out code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests py-gitea openai anthropic google-generativeai
+
+    - name: Run Code Review
+      shell: bash
+      env:
+        ACCESS_TOKEN: ${{ inputs.access-token }}
+        FULL_CONTEXT_MODEL: ${{ inputs.full-context-model }}
+        FULL_CONTEXT_API_KEY: ${{ inputs.full-context-api-key }}
+        SINGLE_CHUNK_MODEL: ${{ inputs.single-chunk-model }}
+        SINGLE_CHUNK_API_KEY: ${{ inputs.single-chunk-api-key }}
+        EXCLUDE: ${{ inputs.exclude-files }}
+      run: python .gitea/scripts/code_review.py
