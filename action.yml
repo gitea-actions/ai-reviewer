@@ -29,8 +29,10 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Check out code
-      uses: actions/checkout@v4
+    - name: fetch-code-review-script
+      image: alpine/git
+      commands:
+        - git clone https://github.com/gitea-actions/ai-reviewer.git
 
     - name: Set up Python
       uses: actions/setup-python@v5
@@ -51,4 +53,4 @@ runs:
         SINGLE_CHUNK_MODEL: ${{ inputs.single-chunk-model }}
         SINGLE_CHUNK_API_KEY: ${{ inputs.single-chunk-api-key }}
         EXCLUDE: ${{ inputs.exclude-files }}
-      run: python .gitea/scripts/code_review.py
+      run: python ai-reviewer/.gitea/scripts/code_review.py
