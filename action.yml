@@ -1,4 +1,4 @@
-name: "Code Review Action"
+name: "Code Review Action with Multiple AI providers"
 description: "An action that reviews PR changes using multiple AI LLMs."
 author: "Myeongseon Choi"
 
