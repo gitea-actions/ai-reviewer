@@ -10,13 +10,7 @@ from model import Model
 ACCESS_TOKEN = os.getenv("ACCESS_TOKEN", "")
 HEADERS = {"Authorization": f"token {ACCESS_TOKEN}"}
 
-GITHUB_EVENT_PATH = os.getenv("GITHUB_EVENT_PATH")
-try:
-    with open(GITHUB_EVENT_PATH, "r") as f:
-        EVENT_DATA = json.load(f)
-except FileNotFoundError:
-    print("Failed to load event data.")
-    exit(1)
+EVENT_DATA = json.loads(os.getenv("GITHUB_EVENT_DATA", "{}"))
 
 FULL_CONTEXT_MODEL_NAME = os.getenv("FULL_CONTEXT_MODEL", "")
 SINGLE_CHUNK_MODEL_NAME = os.getenv("SINGLE_CHUNK_MODEL", "")

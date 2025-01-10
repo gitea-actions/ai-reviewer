@@ -64,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: AI Code Review
-        uses: YOUR-ORG/CODE-REVIEW-ACTION@v1
+        uses: gitea-actions/ai-reviewer@v0.6
         with:
           access-token: ${{ secrets.ACCESS_TOKEN }}
           full-context-model: "gpt-4o"
@@ -78,8 +78,7 @@ jobs:
 
 1. **`on.pull_request.types`**: The workflow triggers when a pull request is opened or synchronized (i.e., new commits pushed).
 2. **`permissions`**: We grant `read` permission to contents and `write` to pull-requests so the Action can post review comments.
-3. **`steps.uses`**: References your published action. Replace `YOUR-ORG/CODE-REVIEW-ACTION@v1` with the actual owner/repo name and a valid version tag (e.g., `@main` or `@v1`).
-4. **`with`**: Provides the necessary inputs.
+3. **`with`**: Provides the necessary inputs.
    - `access-token`: Must be a secret that can post to PRs (e.g., `$GITHUB_TOKEN` or a personal access token on Gitea).
    - `full-context-model` & `single-chunk-model`: Choose which models to use (OpenAI GPT, Anthropic Claude, Google PaLM, etc.).
    - `full-context-api-key` & `single-chunk-api-key`: Corresponding API keys for each model.
