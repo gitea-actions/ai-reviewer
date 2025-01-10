@@ -54,3 +54,7 @@ runs:
         SINGLE_CHUNK_API_KEY: ${{ inputs.single-chunk-api-key }}
         EXCLUDE: ${{ inputs.exclude-files }}
       run: python ai-reviewer/.gitea/scripts/code_review.py
+
+branding:
+  icon: "align-left"
+  color: "orange"
